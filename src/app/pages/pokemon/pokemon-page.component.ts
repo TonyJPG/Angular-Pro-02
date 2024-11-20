@@ -8,6 +8,7 @@ import {
 import { PokemonListComponent } from '../../pokemon/pokemon-list/pokemon-list.component';
 import { PokemonListSkeletonComponent } from './ui/pokemon-list-skeleton/pokemon-list-skeleton.component';
 import { PokemonService } from '../../pokemon/services/pokemon.service';
+import { SimplePokemon } from '../../pokemon/interfaces';
 
 @Component({
   selector: 'pokemon-page',
@@ -17,8 +18,9 @@ import { PokemonService } from '../../pokemon/services/pokemon.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class PokemonPageComponent implements OnInit {
-  public isLoading = signal(true);
   private pokemonService = inject(PokemonService);
+  public isLoading = signal(true);
+  public pokemonList = signal<SimplePokemon[]>([]);
 
   // private appRef = inject(ApplicationRef);
   // private $appState = this.appRef.isStable.subscribe((isStable) => {
@@ -26,16 +28,16 @@ export default class PokemonPageComponent implements OnInit {
   // });
 
   ngOnInit(): void {
-    this.loadPokemon(1);
+    this.loadPokemonPage(1);
 
     setTimeout(() => {
       this.isLoading.set(false);
     }, 1500);
   }
 
-  public loadPokemon(page: number): void {
-    this.pokemonService.loadPage(page).subscribe(() => {
-      console.log('loadPokemon onInit');
+  public loadPokemonPage(page: number): void {
+    this.pokemonService.loadPokemonPage(page).subscribe((pokemonList) => {
+      this.pokemonList.set(pokemonList);
     });
   }
 }

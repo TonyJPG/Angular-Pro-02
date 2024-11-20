@@ -6,7 +6,7 @@
 @if(isLoading()) {
 <pokemon-list-skeleton />
 } @else {
-<pokemon-list />
+<pokemon-list [pokemonList]="pokemonList()" />
 }
 
 <!-- TODO: buttons cargar siguiente y anteriores -->

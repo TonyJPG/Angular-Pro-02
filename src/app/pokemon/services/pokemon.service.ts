@@ -9,7 +9,7 @@ import { PokeAPIResponse, SimplePokemon } from '../interfaces';
 export class PokemonService {
   private http = inject(HttpClient);
 
-  public loadPage(page: number): Observable<SimplePokemon[]> {
+  public loadPokemonPage(page: number): Observable<SimplePokemon[]> {
     if (page <= 0) {
       page = 1;
     }
@@ -28,8 +28,7 @@ export class PokemonService {
             })
           );
           return simplePokemon;
-        }),
-        tap(console.log)
+        })
       );
   }
 }
