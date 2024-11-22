@@ -10,9 +10,6 @@ export class PokemonService {
   private http = inject(HttpClient);
 
   public loadPokemonPage(page: number): Observable<SimplePokemon[]> {
-    if (page <= 0) {
-      page = 1;
-    }
     page--;
 
     return this.http
