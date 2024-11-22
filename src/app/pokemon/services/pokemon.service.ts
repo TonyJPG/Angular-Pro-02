@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
 import { PokeAPIResponse, SimplePokemon } from '../interfaces';
 
 @Injectable({
@@ -29,6 +29,15 @@ export class PokemonService {
           );
           return simplePokemon;
         })
+        // switchMap((resp) => {
+        //   const simplePokemon: SimplePokemon[] = resp.results.map(
+        //     (pokemon) => ({
+        //       id: pokemon.url.split('/').at(-2) ?? '',
+        //       name: pokemon.name,
+        //     })
+        //   );
+        //   return of(simplePokemon);
+        // })
       );
   }
 }
