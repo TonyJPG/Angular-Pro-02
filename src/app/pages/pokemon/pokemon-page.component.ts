@@ -14,11 +14,7 @@ import { PokemonService } from '../../pokemon/services/pokemon.service';
 import { PokemonListComponent } from '../../pokemon/pokemon-list/pokemon-list.component';
 import { PokemonListSkeletonComponent } from './ui/pokemon-list-skeleton/pokemon-list-skeleton.component';
 import { SimplePokemon } from '../../pokemon/interfaces';
-
-enum pageBtnActions {
-  next = 1,
-  previous = -1,
-}
+import { PaginationActions } from './ui/pagination-actions.enum';
 
 @Component({
   selector: 'pokemon-page',
@@ -44,6 +40,8 @@ export default class PokemonPageComponent implements OnInit {
     { requireSync: true }
   );
 
+  readonly PaginationActions = PaginationActions;
+
   ngOnInit(): void {
     this.loadPokemonPage(this.currentPage() || 1);
   }
@@ -60,14 +58,9 @@ export default class PokemonPageComponent implements OnInit {
     });
   }
 
-  public changePageByBtn(btnClicked: string): void {
-    const page =
-      btnClicked === 'next' ? pageBtnActions.next : pageBtnActions.previous;
-    let pageToLoad = this.currentPage() + page;
-
-    if (pageToLoad <= 0) {
-      pageToLoad = 1;
-    }
+  public changePageByBtn(btnClicked: PaginationActions): void {
+    let pageToLoad = this.currentPage() + btnClicked;
+    pageToLoad = pageToLoad <= 0 ? 1 : pageToLoad;
 
     this.loadPokemonPage(pageToLoad);
   }

@@ -9,9 +9,11 @@
 <pokemon-list [pokemonList]="pokemonList()" />
 }
 
-<!-- TODO: buttons cargar siguiente y anteriores -->
-
 <div class="flex justify-between">
-  <button class="mt-2" (click)="changePageByBtn('previous')">Anteriores</button>
-  <button class="mt-2" (click)="changePageByBtn('next')">Siguientes</button>
+  <button class="mt-2" (click)="changePageByBtn(PaginationActions.PREVIOUS_PAGE)">
+    Anteriores
+  </button>
+  <button class="mt-2" (click)="changePageByBtn(PaginationActions.NEXT_PAGE)">
+    Siguientes
+  </button>
 </div>
