@@ -1,16 +1,10 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Meta, Title } from '@angular/platform-browser';
+import { tap } from 'rxjs';
 
 import { PokemonService } from '../../pokemon/services/pokemon.service';
 import { FullPokemon } from '../../pokemon/interfaces';
-import { tap } from 'rxjs';
 
 @Component({
   selector: 'pokemon-detail-page',

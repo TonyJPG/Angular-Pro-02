@@ -10,10 +10,14 @@
 }
 
 <div class="flex justify-between">
-  <button class="mt-2" (click)="changePageByBtn(PaginationActions.PREVIOUS_PAGE)">
+  <button
+    class="mt-2"
+    [disabled]="currentPage() === 1"
+    [routerLink]="['/pokemon/page/', currentPage() - 1]"
+  >
     Anteriores
   </button>
-  <button class="mt-2" (click)="changePageByBtn(PaginationActions.NEXT_PAGE)">
+  <button class="mt-2" [routerLink]="['/pokemon/page/', currentPage() + 1]">
     Siguientes
   </button>
 </div>
