@@ -31,4 +31,41 @@ describe(`PokemonCardComponent`, () => {
   it('should create the app', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have the SimplePokemon signal inputValue', () => {
+    expect(component.pokemon()).toEqual(mockPokemon);
+  });
+
+  it('should render the pokemon name correctly', () => {
+    const pokemonName = compiled.querySelector('h2');
+    expect(pokemonName).toBeDefined();
+
+    if (pokemonName) {
+      expect(pokemonName.textContent).toContain(mockPokemon.name);
+    }
+  });
+
+  it('should render the pokemon image correctly', () => {
+    const pokemonImageUrl =
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+    const pokemonImageElement = compiled.querySelector('img');
+    expect(pokemonImageElement).toBeDefined();
+
+    if (pokemonImageElement) {
+      const pokemonImageSrc = pokemonImageElement.getAttribute('src');
+      expect(pokemonImageSrc).toBe(`${pokemonImageUrl + mockPokemon.id}.png`);
+    }
+  });
+
+  it('should have router link and link to the correct route', () => {
+    const routerLink = compiled.querySelector('[ng-reflect-router-link]');
+    expect(routerLink).toBeTruthy();
+
+    if (routerLink) {
+      const routerLinkAttribute = routerLink.getAttribute('ng-reflect-router-link');
+      expect(routerLinkAttribute).toBeTruthy();
+
+      expect(routerLinkAttribute).toBe(`/pokemon,${mockPokemon.name}`);
+    }
+  });
 });
