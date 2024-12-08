@@ -3,10 +3,10 @@
 
 <hr class="my-2" />
 
-@if(isLoading()) {
-<pokemon-list-skeleton />
+@if (isLoading()) {
+  <pokemon-list-skeleton />
 } @else {
-<pokemon-list [pokemonList]="pokemonList()" />
+  <pokemon-list [pokemonList]="pokemonList()" />
 }
 
 <div class="flex justify-between">

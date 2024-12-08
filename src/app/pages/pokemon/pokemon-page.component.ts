@@ -27,9 +27,9 @@ export default class PokemonPageComponent {
     this.route.params.pipe(
       map((params) => params['page'] ?? 1),
       map((page) => (isNaN(Number(page)) ? 1 : Number(page))),
-      map((page) => (page <= 0 ? 1 : page))
+      map((page) => (page <= 0 ? 1 : page)),
     ),
-    { requireSync: true }
+    { requireSync: true },
   );
 
   public loadOnPageChange = effect(() => {

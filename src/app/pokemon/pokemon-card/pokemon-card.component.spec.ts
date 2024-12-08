@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
+
 import { PokemonCardComponent } from './pokemon-card.component';
 import { SimplePokemon } from '../interfaces';
 
@@ -39,10 +40,7 @@ describe(`PokemonCardComponent`, () => {
   it('should render the pokemon name correctly', () => {
     const pokemonName = compiled.querySelector('h2');
     expect(pokemonName).toBeDefined();
-
-    if (pokemonName) {
-      expect(pokemonName.textContent).toContain(mockPokemon.name);
-    }
+    expect(pokemonName?.textContent).toContain(mockPokemon.name);
   });
 
   it('should render the pokemon image correctly', () => {
@@ -51,21 +49,17 @@ describe(`PokemonCardComponent`, () => {
     const pokemonImageElement = compiled.querySelector('img');
     expect(pokemonImageElement).toBeDefined();
 
-    if (pokemonImageElement) {
-      const pokemonImageSrc = pokemonImageElement.getAttribute('src');
-      expect(pokemonImageSrc).toBe(`${pokemonImageUrl + mockPokemon.id}.png`);
-    }
+    const pokemonImageSrc = pokemonImageElement?.getAttribute('src');
+    expect(pokemonImageSrc).toBe(`${pokemonImageUrl + mockPokemon.id}.png`);
   });
 
   it('should have router link and link to the correct route', () => {
     const routerLink = compiled.querySelector('[ng-reflect-router-link]');
     expect(routerLink).toBeTruthy();
 
-    if (routerLink) {
-      const routerLinkAttribute = routerLink.getAttribute('ng-reflect-router-link');
-      expect(routerLinkAttribute).toBeTruthy();
+    const routerLinkAttribute = routerLink?.getAttribute('ng-reflect-router-link');
+    expect(routerLinkAttribute).toBeTruthy();
 
-      expect(routerLinkAttribute).toBe(`/pokemon,${mockPokemon.name}`);
-    }
+    expect(routerLinkAttribute).toBe(`/pokemon,${mockPokemon.name}`);
   });
 });

@@ -35,49 +35,39 @@ describe('App Routes', () => {
     const aboutRoute = routes.find((route) => route.path === 'about');
     expect(aboutRoute).toBeDefined();
 
-    if (aboutRoute) {
-      const aboutComponent = (await aboutRoute.loadComponent!()) as any;
-      expect(aboutComponent.default.name).toBe('AboutPageComponent');
-    }
+    const aboutComponent = (await aboutRoute?.loadComponent!()) as any;
+    expect(aboutComponent.default.name).toBe('AboutPageComponent');
   });
 
   it('should load the correct component (contact)', async () => {
     const contactRoute = routes.find((route) => route.path === 'contact');
     expect(contactRoute).toBeDefined();
 
-    if (contactRoute) {
-      const contactComponent = (await contactRoute.loadComponent!()) as any;
-      expect(contactComponent.default.name).toBe('ContactPageComponent');
-    }
+    const contactComponent = (await contactRoute?.loadComponent!()) as any;
+    expect(contactComponent.default.name).toBe('ContactPageComponent');
   });
 
   it('should load the correct component (pricing)', async () => {
     const pricingRoute = routes.find((route) => route.path === 'pricing');
     expect(pricingRoute).toBeDefined();
 
-    if (pricingRoute) {
-      const pricingComponent = (await pricingRoute.loadComponent!()) as any;
-      expect(pricingComponent.default.name).toBe('PricingPageComponent');
-    }
+    const pricingComponent = (await pricingRoute?.loadComponent!()) as any;
+    expect(pricingComponent.default.name).toBe('PricingPageComponent');
   });
 
   it('should load the correct component (pokemon detail page)', async () => {
     const pokemonDetailRoute = routes.find((route) => route.path === 'pokemon/:id');
     expect(pokemonDetailRoute).toBeDefined();
 
-    if (pokemonDetailRoute) {
-      const pokemonDetailComponent = (await pokemonDetailRoute.loadComponent!()) as any;
-      expect(pokemonDetailComponent.default.name).toBe('PokemonDetailPageComponent');
-    }
+    const pokemonDetailComponent = (await pokemonDetailRoute?.loadComponent!()) as any;
+    expect(pokemonDetailComponent.default.name).toBe('PokemonDetailPageComponent');
   });
 
   it('should load the correct component (pokemon page)', async () => {
     const pokemonPageRoute = routes.find((route) => route.path === 'pokemon/page/:page');
     expect(pokemonPageRoute).toBeDefined();
 
-    if (pokemonPageRoute) {
-      const pokemonPageComponent = (await pokemonPageRoute.loadComponent!()) as any;
-      expect(pokemonPageComponent.default.name).toBe('PokemonPageComponent');
-    }
+    const pokemonPageComponent = (await pokemonPageRoute?.loadComponent!()) as any;
+    expect(pokemonPageComponent.default.name).toBe('PokemonPageComponent');
   });
 });
