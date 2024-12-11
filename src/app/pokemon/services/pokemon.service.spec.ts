@@ -15,7 +15,7 @@ const mockPokeApiResponse: PokeAPIResponse = {
   ],
 };
 
-const expectedPokemon: SimplePokemon[] = [
+const expectedPokemonList: SimplePokemon[] = [
   { id: '1', name: 'bulbasaur' },
   { id: '2', name: 'ivysaur' },
 ];
@@ -47,12 +47,49 @@ describe('PokemonService', () => {
 
   it('should load a page of SimplePokemon', () => {
     service.loadPokemonPage(1).subscribe((pokemonList) => {
-      expect(pokemonList).toEqual(expectedPokemon);
+      expect(pokemonList).toEqual(expectedPokemonList);
     });
 
     const req = httpMock.expectOne(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=15`);
     expect(req.request.method).toBe('GET');
 
     req.flush(mockPokeApiResponse);
+  });
+
+  it('shoul load page number 5 of pokemon', () => {
+    service.loadPokemonPage(5).subscribe((pokemonList) => {
+      expect(pokemonList).toEqual(expectedPokemonList);
+    });
+
+    const req = httpMock.expectOne(`https://pokeapi.co/api/v2/pokemon?offset=60&limit=15`);
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockPokeApiResponse);
+  });
+
+  it('should load a pokemon by id', () => {
+    const pokemonId = '3';
+
+    service.loadPokemonDetail(pokemonId).subscribe((pokemon: any) => {
+      expect(pokemon).toEqual(mockPokemon);
+    });
+
+    const req = httpMock.expectOne(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`);
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockPokemon);
+  });
+
+  it('should load a pokemon by name', () => {
+    const pokemonName = 'charmander';
+
+    service.loadPokemonDetail(pokemonName).subscribe((pokemon: any) => {
+      expect(pokemon).toEqual(mockPokemon);
+    });
+
+    const req = httpMock.expectOne(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockPokemon);
   });
 });
