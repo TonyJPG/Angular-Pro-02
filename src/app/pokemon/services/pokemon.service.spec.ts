@@ -4,6 +4,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 import { PokemonService } from './pokemon.service';
 import { PokeAPIResponse, SimplePokemon } from '../interfaces';
+import { catchError } from 'rxjs';
 
 const mockPokeApiResponse: PokeAPIResponse = {
   count: 2,
@@ -91,5 +92,27 @@ describe('PokemonService', () => {
     expect(req.request.method).toBe('GET');
 
     req.flush(mockPokemon);
+  });
+
+  it('should catch error if pokemon not found', () => {
+    const pokemonName = 'no-existe';
+
+    service
+      .loadPokemonDetail(pokemonName)
+      .pipe(
+        catchError((error) => {
+          expect(error.message).toContain('Pokèmon not found');
+          return [];
+        }),
+      )
+      .subscribe();
+
+    const req = httpMock.expectOne(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
+    expect(req.request.method).toBe('GET');
+
+    req.flush('Pokèmon not found', {
+      status: 404,
+      statusText: 'Not Found',
+    });
   });
 });
